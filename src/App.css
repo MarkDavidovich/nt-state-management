@@ -1,0 +1,9 @@
+.ex {
+  border: 1px black solid;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.ex > h1 {
+  border-bottom: 2px black solid;
+}

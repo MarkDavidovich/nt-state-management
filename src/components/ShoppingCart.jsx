@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { cartReducer, initialCart } from "../store/shopping-cart-context";
+import { cartReducer, initialCart } from "../store/shopping-cart-reducer";
 
 export function ShoppingCart() {
   const [state, dispatch] = useReducer(cartReducer, initialCart);
