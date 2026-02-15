@@ -1,32 +1,22 @@
 import { useState, useContext } from "react";
-import { DemoAppContext } from "../store/demo-app-context";
+import { ThemeContext, ThemeProvider, useTheme } from "../store/theme-context";
 
 export function DemoApp() {
-  const [theme, setTheme] = useState("light");
-  const [fontSize, setFontSize] = useState("medium");
-
-  const ctxValue = {
-    theme: theme,
-    setTheme: setTheme,
-    fontSize: fontSize,
-    setFontSize: setFontSize,
-  };
-
   return (
-    <DemoAppContext value={ctxValue}>
-      <Layout theme={theme} setTheme={setTheme} fontSize={fontSize} setFontSize={setFontSize} />
-    </DemoAppContext>
+    <ThemeProvider>
+      <Layout />
+    </ThemeProvider>
   );
 }
 
 function Layout() {
-  const { theme } = useContext(DemoAppContext);
+  const { theme } = useTheme();
 
   const bgColor = theme === "light" ? "#ffffff" : "#1a1a1a";
   const color = theme === "light" ? "#000000" : "#ffffff";
 
   return (
-    <div style={{ backgroundColor: bgColor, color, minHeight: "100vh", padding: "20px" }}>
+    <div style={{ backgroundColor: bgColor, color, padding: "20px" }}>
       <Header />
       <Content />
     </div>
@@ -43,7 +33,7 @@ function Header() {
 }
 
 function Navigation() {
-  const { fontSize } = useContext(DemoAppContext);
+  const { fontSize } = useTheme();
   const size = fontSize === "small" ? "14px" : fontSize === "large" ? "20px" : "16px";
 
   return (
@@ -63,13 +53,13 @@ function Controls() {
 }
 
 function ThemeToggle() {
-  const { theme, setTheme } = useContext(DemoAppContext);
+  const { theme, setTheme } = useTheme();
 
   return <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>{theme === "light" ? "Dark" : "Light"} Mode</button>;
 }
 
 function FontControl() {
-  const { fontSize, setFontSize } = useContext(DemoAppContext);
+  const { fontSize, setFontSize } = useTheme();
 
   return (
     <select value={fontSize} onChange={(e) => setFontSize(e.target.value)}>
@@ -81,7 +71,7 @@ function FontControl() {
 }
 
 function Content() {
-  const { fontSize } = useContext(DemoAppContext);
+  const { fontSize } = useTheme();
   const size = fontSize === "small" ? "14px" : fontSize === "large" ? "20px" : "16px";
 
   return (
@@ -93,7 +83,7 @@ function Content() {
 }
 
 function Article() {
-  const { theme } = useContext(DemoAppContext);
+  const { theme } = useTheme();
 
   return (
     <article>
@@ -104,7 +94,7 @@ function Article() {
 }
 
 function Sidebar() {
-  const { theme } = useContext(DemoAppContext);
+  const { theme } = useTheme();
 
   return (
     <aside style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc" }}>
